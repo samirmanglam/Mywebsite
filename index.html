@@ -519,6 +519,15 @@
             word-break: break-all;
         }
 
+        .info-card a {
+            color: #888;
+            text-decoration: none;
+        }
+
+        .info-card a:hover {
+            color: var(--accent);
+        }
+
         /* WhatsApp Floating Button */
         .whatsapp-float {
             position: fixed;
@@ -678,6 +687,7 @@
             50% { opacity: 0.5; }
         }
     </style>
+    <!-- FIX 1: <base target="_blank"> HATAYA — ye tab switching tod raha tha -->
 </head>
 <body>
     <!-- Loading Screen -->
@@ -687,36 +697,5 @@
 
     <!-- Navigation -->
     <nav>
-        <div class="logo">Samirmanglam</div>
-        <div class="nav-tabs">
-            <button class="tab-btn active" onclick="switchTab('home')">Home</button>
-            <button class="tab-btn" onclick="switchTab('query')">Query</button>
-        </div>
-    </nav>
-
-    <!-- Main Content -->
-    <div class="content-wrapper">
-        <!-- Home Tab -->
-        <div id="home" class="tab-content active">
-            <section class="home-section">
-                <div class="home-bg">
-                    <div class="gradient-orb orb-1"></div>
-                    <div class="gradient-orb orb-2"></div>
-                </div>
-                
-                <div class="home-content">
-                    <div class="hero-text">
-                        <h1>Creative <span class="highlight">Developer</span> & Designer</h1>
-                        <p>Building digital experiences that matter. Transforming ideas into elegant, functional solutions with modern technologies and creative design.</p>
-                        <div class="cta-buttons">
-                            <a href="#query" class="btn btn-primary" onclick="switchTab('query')">Get in Touch</a>
-                            <a href="#" class="btn btn-secondary" onclick="alert('Portfolio coming soon!')">View Work</a>
-                        </div>
-                    </div>
-                    
-                    <div class="hero-visual">
-                        <div class="profile-card">
-                            <div class="avatar-container">
-                                <div class="avatar-ring"></div>
-                                <!-- Aapki Photo Yahan Lag Gayi Hai -->
-          
+        <div class="logo" style="display:flex;align-items:center;gap:10px;">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAfQAAAH0CAYAAADL1t+KAAAQAElEQVR4AexdB4AeRdl+Znb3a9fv0hNSISGEHnozFEFAimhQVBDpVXoHOaUXARVEUBHlF9TYAOmgQarSS4D0Xi/Xv767M/8ze3eQchcSkksuyWzm3Zmd8s47z+zNM+X7vkjYyyJgEbAIWAQsAhaBjR4BS+gbfRfaBlgELAIWAYuARQDoXkK3CFsELAIWAYuARcAisF4QsIS+XmC2lVgELAIWAYuARaB7EdiYCb17kbHaLQIWAYuARcAisBEhYAl9I+osa6pFwCJgEbAIWAS6QsASelfI2HiLgEXAImARsAhsRAhYQt+IOsuaahGwCFgELAIWga4QsITeFTLdG2+1WwQsAhYBi4BFYJ0iYAl9ncJplVkELAIWAYuARWDDIGAJfcPg3r21Wu0WAYuARcAisNkhYAl9s+ty22CLgEXAImAR2BQRsIS+KfZq97bJarcIWAQsAhaBHoiAJfQe2CnWJIuARcAiYBGwCKwpApbQ1xQxm797EbDaLQIWAYuAReALIWAJ/QvBZgtZBCwCFgGLgEWgZyFgCb1n9Ye1pnsRsNotAhYBi8Ami4Al9E22a23DLAIWAYuARWBzQsAS+ubU27at3YuA1W4RsAhYBDYgApbQNyD4tmqLgEXAImARsAisKwQsoa8rJK0ei0D3ImC1WwQsAhaBVSJgCX2V8NhEi4BFwCJgEbAIbBwIWELfOPrJWmkR6F4ErHaLgEVgo0fAEvpG34W2ARYBi4BFwCJgEQAsodu3wCJgEehuBKx+i4BFYD0gYAl9PYBsq7AIWAQsAhYBi0B3I2AJvbsRtvotAhaB7kXAarcIWAQiBCyhRzDYm0XAImARsAhYBDZuBCyhb9z9Z623CFgEuhcBq90isNEgYAl9o+kqa6hFwCJgEbAIWAS6RsASetfY2BSLgEXAItC9CFjtFoF1iIAl9HUIplVlEbAIWAQsAhaBDYWAJfQNhbyt1yJgEbAIdC8CVvtmhoAl9M2sw21zLQIWAYuARWDTRMAS+qbZr7ZVFgGLgEWgexGw2nscApbQe1yXWIMsAhYBi4BFwCKw5ghYQl9zzGwJi4BFwCJgEeheBKz2L4CAJfQvAJotYhGwCFgELAIWgZ6GgCX0ntYj1h6LgEXAImAR6F4ENlHtltA30Y61zbIIWAQsAhaBzQsBS+ibV3/b1loELAIWAYtA9yKwwbRbQt9g0NuKLQIWAYuARcAisO4QsIS+7rC0miwCFgGLgEXAItC9CKxCuyX0VYBjkyw
