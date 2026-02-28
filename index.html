@@ -1,839 +1,828 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>ग्रामीणसेवाकेंद्र | GraminSevaKendra</title>
-   
-   <!-- Tailwind CSS -->
-   <script src="https://cdn.tailwindcss.com"></script>
-   
-   <!-- Google Fonts: Mukta & Noto Sans Devanagari -->
-   <link rel="preconnect" href="https://fonts.googleapis.com">
-   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-   <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;600;700;800&family=Noto+Sans+Devanagari:wght@300;400;500;700&display=swap" rel="stylesheet">
-   
-   <!-- FontAwesome -->
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Samirmanglam - Portfolio</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Space+Grotesk:wght@300;400;500;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-   <script>
-       tailwind.config = {
-           theme: {
-               extend: {
-                   fontFamily: {
-                       'heading': ['Mukta', 'sans-serif'],
-                       'body': ['"Noto Sans Devanagari"', 'sans-serif'],
-                   },
-                   colors: {
-                       'village-brown': '#5D4037',
-                       'village-dark': '#3E2723',
-                       'village-gold': '#FFB300',
-                       'village-green': '#2E7D32',
-                       'village-clay': '#D84315',
-                       'village-cream': '#FFF8E1',
-                       'village-sky': '#81D4FA',
-                   },
-                   animation: {
-                       'float': 'float 6s ease-in-out infinite',
-                       'swing': 'swing 3s ease-in-out infinite',
-                       'glow': 'glow 2s ease-in-out infinite alternate',
-                       'fade-in-up': 'fadeInUp 1s ease-out forwards',
-                   },
-                   keyframes: {
-                       float: {
-                           '0%, 100%': { transform: 'translateY(0)' },
-                           '50%': { transform: 'translateY(-20px)' },
-                       },
-                       swing: {
-                           '0%, 100%': { transform: 'rotate(-10deg)' },
-                           '50%': { transform: 'rotate(10deg)' },
-                       },
-                       glow: {
-                           'from': { boxShadow: '0 0 10px #FFB300' },
-                           'to': { boxShadow: '0 0 20px #FFB300, 0 0 30px #FF6F00' },
-                       },
-                       fadeInUp: {
-                           '0%': { opacity: '0', transform: 'translateY(30px)' },
-                           '100%': { opacity: '1', transform: 'translateY(0)' },
-                       }
-                   }
-               }
-           }
-       }
-   </script>
+        :root {
+            --primary: #1a1a1a;
+            --secondary: #ff6b6b;
+            --accent: #4ecdc4;
+            --light: #f7f7f7;
+            --dark: #0f0f0f;
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
 
-   <style>
-       body {
-           font-family: 'Noto Sans Devanagari', sans-serif;
-           overflow-x: hidden;
-           background-color: #1a1a1a;
-       }
-       h1, h2, h3, h4, h5, h6 {
-           font-family: 'Mukta', sans-serif;
-       }
-       
-       /* Custom Scrollbar */
-       ::-webkit-scrollbar {
-           width: 10px;
-       }
-       ::-webkit-scrollbar-track {
-           background: #3E2723;
-       }
-       ::-webkit-scrollbar-thumb {
-           background: #FFB300;
-           border-radius: 5px;
-       }
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
 
-       /* Gate Animation Styles */
-       #gate-overlay {
-           position: fixed;
-           top: 0;
-           left: 0;
-           width: 100%;
-           height: 100%;
-           z-index: 9999;
-           display: flex;
-           pointer-events: none;
-       }
-       .gate-door {
-           width: 50%;
-           height: 100%;
-           background-image: url('https://images.unsplash.com/photo-1599692995224-84d50734642b?q=80&w=1000&auto=format&fit=crop');
-           background-size: cover;
-           background-position: center;
-           transition: transform 2.5s cubic-bezier(0.77, 0, 0.175, 1);
-           position: relative;
-           box-shadow: inset 0 0 50px rgba(0,0,0,0.8);
-       }
-       .gate-left {
-           transform-origin: left;
-           border-right: 5px solid #3E2723;
-       }
-       .gate-right {
-           transform-origin: right;
-           border-left: 5px solid #3E2723;
-       }
-       .gate-open .gate-left {
-           transform: perspective(1000px) rotateY(-110deg);
-       }
-       .gate-open .gate-right {
-           transform: perspective(1000px) rotateY(110deg);
-       }
-       
-       /* Wood Texture Overlay for Gates */
-       .wood-texture {
-           position: absolute;
-           top: 0; left: 0; right: 0; bottom: 0;
-           background: repeating-linear-gradient(90deg, rgba(0,0,0,0.2) 0px, rgba(0,0,0,0.2) 2px, transparent 2px, transparent 10px);
-           pointer-events: none;
-       }
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(15, 15, 15, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
 
-       /* Fog Canvas */
-       #fog-canvas {
-           position: absolute;
-           top: 0;
-           left: 0;
-           width: 100%;
-           height: 100%;
-           pointer-events: none;
-           z-index: 1;
-       }
+        .logo {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -1px;
+        }
 
-       /* Glassmorphism */
-       .glass-panel {
-           background: rgba(255, 255, 255, 0.1);
-           backdrop-filter: blur(10px);
-           -webkit-backdrop-filter: blur(10px);
-           border: 1px solid rgba(255, 255, 255, 0.2);
-       }
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
+        }
 
-       /* Service Card Hover */
-       .service-card {
-           transition: all 0.4s ease;
-       }
-       .service-card:hover {
-           transform: translateY(-10px);
-           box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.4);
-       }
+        .tab-btn {
+            padding: 12px 30px;
+            border: none;
+            background: transparent;
+            color: var(--light);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
 
-       /* Lamp Animation */
-       .diya-flame {
-           animation: flicker 0.1s infinite alternate;
-       }
-       @keyframes flicker {
-           0% { opacity: 0.8; transform: scale(1); }
-           100% { opacity: 1; transform: scale(1.1); }
-       }
+        .tab-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
 
-       /* Bell Animation */
-       .bell-icon {
-           transform-origin: top center;
-       }
-       .bell-ring {
-           animation: ring-bell 1s ease-in-out;
-       }
-       @keyframes ring-bell {
-           0% { transform: rotate(0); }
-           20% { transform: rotate(15deg); }
-           40% { transform: rotate(-15deg); }
-           60% { transform: rotate(10deg); }
-           80% { transform: rotate(-10deg); }
-           100% { transform: rotate(0); }
-       }
-   </style>
+        .tab-btn.active {
+            background: var(--gradient-1);
+            color: white;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        /* Main Content */
+        .content-wrapper {
+            margin-top: 80px;
+            min-height: calc(100vh - 80px);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Home Section */
+        .home-section {
+            min-height: calc(100vh - 80px);
+            display: flex;
+            align-items: center;
+            padding: 0 5%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .home-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .gradient-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .orb-1 {
+            width: 400px;
+            height: 400px;
+            background: var(--gradient-1);
+            top: 10%;
+            left: 10%;
+        }
+
+        .orb-2 {
+            width: 300px;
+            height: 300px;
+            background: var(--gradient-2);
+            bottom: 10%;
+            right: 10%;
+            animation-delay: -5s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+        }
+
+        .home-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.5rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #fff 0%, #a8a8a8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-text .highlight {
+            background: var(--gradient-2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-text p {
+            font-size: 1.3rem;
+            color: #888;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+        }
+
+        .btn {
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--gradient-1);
+            color: white;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .hero-visual {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .profile-card {
+            width: 350px;
+            height: 450px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .profile-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: var(--gradient-1);
+            opacity: 0.1;
+            animation: rotate 10s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .avatar {
+            width: 150px;
+            height: 150px;
+            background: var(--gradient-2);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 4rem;
+            color: white;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 20px 40px rgba(245, 87, 108, 0.3);
+        }
+
+        .profile-info {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .profile-info h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .profile-info p {
+            color: #888;
+            font-size: 1rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .social-links a:hover {
+            background: var(--gradient-1);
+            transform: translateY(-5px);
+        }
+
+        /* Query Section */
+        .query-section {
+            min-height: calc(100vh - 80px);
+            padding: 60px 5%;
+            display: flex;
+            align-items: center;
+        }
+
+        .query-container {
+            max-width: 800px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin-bottom: 15px;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-header p {
+            color: #888;
+            font-size: 1.1rem;
+        }
+
+        .contact-form {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 500;
+            color: #ccc;
+            font-size: 0.95rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: white;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--secondary);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 20px rgba(255, 107, 107, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            background: var(--gradient-1);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .info-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .info-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-1);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 15px;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .info-card h4 {
+            font-family: 'Syne', sans-serif;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .info-card p {
+            color: #888;
+            font-size: 0.95rem;
+            word-break: break-all;
+        }
+
+        /* WhatsApp Floating Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: #25d366;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 2rem;
+            text-decoration: none;
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.3);
+            z-index: 999;
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1) rotate(10deg);
+            box-shadow: 0 15px 40px rgba(37, 211, 102, 0.4);
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+            70% { box-shadow: 0 0 0 20px rgba(37, 211, 102, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+
+        .whatsapp-tooltip {
+            position: absolute;
+            right: 70px;
+            background: white;
+            color: #333;
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        .whatsapp-float:hover .whatsapp-tooltip {
+            opacity: 1;
+            visibility: visible;
+            right: 75px;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .home-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-text h1 {
+                font-size: 3rem;
+            }
+
+            .cta-buttons {
+                justify-content: center;
+            }
+
+            .profile-card {
+                width: 300px;
+                height: 400px;
+            }
+
+            .contact-info {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            nav {
+                padding: 15px 5%;
+            }
+
+            .logo {
+                font-size: 1.4rem;
+            }
+
+            .tab-btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .contact-form {
+                padding: 30px 20px;
+            }
+
+            .section-header h2 {
+                font-size: 2rem;
+            }
+        }
+
+        /* Loading Animation */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .loader.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loader-text {
+            font-family: 'Syne', sans-serif;
+            font-size: 2rem;
+            font-weight: 800;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: pulse-text 1.5s infinite;
+        }
+
+        @keyframes pulse-text {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+    </style>
 </head>
-<body class="bg-village-dark text-village-cream">
+<body>
+    <!-- Loading Screen -->
+    <div class="loader" id="loader">
+        <div class="loader-text">Samirmanglam.in</div>
+    </div>
 
-   <!-- Audio Elements -->
-   <audio id="bg-music" loop>
-       <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=indian-flute-141589.mp3" type="audio/mpeg">
-   </audio>
-   
-   <audio id="gate-audio">
-       <source src="https://cdn.pixabay.com/download/audio/2022/03/24/audio_c8c90c59c7.mp3?filename=small-bell-ring-01-293473.mp3" type="audio/mpeg">
-   </audio>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">Samirmanglam</div>
+        <div class="nav-tabs">
+            <button class="tab-btn active" onclick="switchTab('home')">Home</button>
+            <button class="tab-btn" onclick="switchTab('query')">Query</button>
+        </div>
+    </nav>
 
-   <audio id="temple-bell-audio">
-       <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3?filename=temple-bell-108408.mp3" type="audio/mpeg">
-   </audio>
+    <!-- Main Content -->
+    <div class="content-wrapper">
+        <!-- Home Tab -->
+        <div id="home" class="tab-content active">
+            <section class="home-section">
+                <div class="home-bg">
+                    <div class="gradient-orb orb-1"></div>
+                    <div class="gradient-orb orb-2"></div>
+                </div>
+                
+                <div class="home-content">
+                    <div class="hero-text">
+                        <h1>Creative <span class="highlight">Developer</span> & Designer</h1>
+                        <p>Building digital experiences that matter. Transforming ideas into elegant, functional solutions with modern technologies and creative design.</p>
+                        <div class="cta-buttons">
+                            <a href="#query" class="btn btn-primary" onclick="switchTab('query')">Get in Touch</a>
+                            <a href="#" class="btn btn-secondary" onclick="alert('Portfolio coming soon!')">View Work</a>
+                        </div>
+                    </div>
+                    
+                    <div class="hero-visual">
+                        <div class="profile-card">
+                            <div class="avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="profile-info">
+                                <h3>Samirmanglam</h3>
+                                <p>Full Stack Developer</p>
+                                <div class="social-links">
+                                    <a href="#" title="GitHub"><i class="fab fa-github"></i></a>
+                                    <a href="#" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                                    <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                                    <a href="mailto:query@samirmanglam.in" title="Email"><i class="fas fa-envelope"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
 
-   <!-- Gate Overlay -->
-   <div id="gate-overlay">
-       <div class="gate-door gate-left flex items-center justify-end pr-4">
-           <div class="wood-texture"></div>
-           <div class="text-village-gold text-6xl font-heading opacity-50">ग्रा</div>
-       </div>
-       <div class="gate-door gate-right flex items-center justify-start pl-4">
-           <div class="wood-texture"></div>
-           <div class="text-village-gold text-6xl font-heading opacity-50">मीण</div>
-       </div>
-   </div>
+        <!-- Query Tab -->
+        <div id="query" class="tab-content">
+            <section class="query-section">
+                <div class="query-container">
+                    <div class="section-header">
+                        <h2>Get In Touch</h2>
+                        <p>Have a project in mind? Let's create something amazing together.</p>
+                    </div>
 
-   <!-- Navigation -->
-   <nav class="fixed w-full z-40 transition-all duration-300" id="navbar">
-       <div class="glass-panel shadow-lg">
-           <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-               <div class="flex items-center justify-between h-20">
-                   <div class="flex items-center gap-3">
-                       <div class="w-10 h-10 bg-village-gold rounded-full flex items-center justify-center text-village-dark font-bold text-xl shadow-lg animate-pulse">
-                           <i class="fas fa-om"></i>
-                       </div>
-                       <span class="font-heading text-2xl font-bold text-village-gold tracking-wide">GraminSevaKendra</span>
-                   </div>
-                   
-                   <!-- Desktop Menu -->
-                   <div class="hidden md:block">
-                       <div class="ml-10 flex items-baseline space-x-8">
-                           <a href="#home" class="hover:text-village-gold px-3 py-2 rounded-md text-lg font-medium transition-colors">मुख्य पृष्ठ</a>
-                           <a href="#services" class="hover:text-village-gold px-3 py-2 rounded-md text-lg font-medium transition-colors">सेवाएं</a>
-                           <a href="#about" class="hover:text-village-gold px-3 py-2 rounded-md text-lg font-medium transition-colors">हमारे बारे में</a>
-                           <a href="#contact" class="bg-village-gold text-village-dark hover:bg-yellow-400 px-4 py-2 rounded-full text-lg font-bold transition-all shadow-lg hover:shadow-yellow-500/50">संपर्क करें</a>
-                       </div>
-                   </div>
+                    <form class="contact-form" onsubmit="handleSubmit(event)">
+                        <div class="form-group">
+                            <label for="name">Your Name</label>
+                            <input type="text" id="name" name="name" required placeholder="Enter your name">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" required placeholder="Enter your email">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" name="subject" required placeholder="What's this about?">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Your Message</label>
+                            <textarea id="message" name="message" required placeholder="Tell me about your project..."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn">
+                            <i class="fas fa-paper-plane"></i> Send Message
+                        </button>
+                    </form>
 
-                   <!-- Mobile menu button -->
-                   <div class="md:hidden">
-                       <button id="mobile-menu-btn" class="text-village-gold hover:text-white focus:outline-none">
-                           <i class="fas fa-bars text-2xl"></i>
-                       </button>
-                   </div>
-               </div>
-           </div>
-       </div>
-       
-       <!-- Mobile Menu Panel -->
-       <div id="mobile-menu" class="hidden md:hidden glass-panel border-t border-gray-700">
-           <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-               <a href="#home" class="text-gray-300 hover:text-village-gold block px-3 py-2 rounded-md text-base font-medium">मुख्य पृष्ठ</a>
-               <a href="#services" class="text-gray-300 hover:text-village-gold block px-3 py-2 rounded-md text-base font-medium">सेवाएं</a>
-               <a href="#about" class="text-gray-300 hover:text-village-gold block px-3 py-2 rounded-md text-base font-medium">हमारे बारे में</a>
-               <a href="#contact" class="text-village-gold font-bold block px-3 py-2 rounded-md text-base">संपर्क करें</a>
-           </div>
-       </div>
-   </nav>
+                    <div class="contact-info">
+                        <div class="info-card">
+                            <div class="info-icon">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4>Name</h4>
+                            <p>Samirmanglam</p>
+                        </div>
+                        
+                        <div class="info-card">
+                            <div class="info-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <h4>Email</h4>
+                            <p>query@samirmanglam.in</p>
+                        </div>
+                        
+                        <div class="info-card">
+                            <div class="info-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <h4>Phone</h4>
+                            <p>+91 7979788689</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
 
-   <!-- Hero Section -->
-   <section id="home" class="relative h-screen flex items-center justify-center overflow-hidden">
-       <!-- Background Image with Parallax -->
-       <div class="absolute inset-0 z-0">
-           <img src="https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?q=80&w=2070&auto=format&fit=crop" 
-                alt="Village Background" 
-                class="w-full h-full object-cover opacity-60 scale-110 transition-transform duration-[20s] ease-linear"
-                id="hero-bg">
-           <div class="absolute inset-0 bg-gradient-to-b from-village-dark/80 via-transparent to-village-dark"></div>
-       </div>
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/917979788689" target="_blank" class="whatsapp-float">
+        <i class="fab fa-whatsapp"></i>
+        <span class="whatsapp-tooltip">Chat on WhatsApp</span>
+    </a>
 
-       <!-- Fog Canvas -->
-       <canvas id="fog-canvas"></canvas>
+    <script>
+        // Remove loader after page loads
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+            }, 1000);
+        });
 
-       <!-- Content -->
-       <div class="relative z-10 text-center px-4 max-w-5xl mx-auto" id="hero-content">
-           <div class="mb-6 inline-block animate-float">
-               <i class="fas fa-dharmachakra text-6xl text-village-gold opacity-80"></i>
-           </div>
-           
-           <h1 class="text-5xl md:text-7xl lg:text-8xl font-heading font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 via-yellow-400 to-yellow-600 mb-6 drop-shadow-lg opacity-0 translate-y-10 transition-all duration-1000" id="main-title">
-               ग्रामीणसेवाकेंद्र
-           </h1>
-           
-           <p class="text-xl md:text-3xl text-village-cream font-body mb-8 opacity-0 translate-y-10 transition-all duration-1000 delay-300" id="sub-title">
-               आपके गाँव का डिजिटल साथी
-           </p>
-           
-           <div class="flex flex-col md:flex-row gap-4 justify-center opacity-0 translate-y-10 transition-all duration-1000 delay-500" id="hero-buttons">
-               <a href="#services" class="group relative px-8 py-4 bg-village-gold text-village-dark font-bold text-xl rounded-full overflow-hidden shadow-lg hover:shadow-yellow-500/50 transition-all">
-                   <span class="relative z-10">सेवाएं देखें</span>
-                   <div class="absolute inset-0 h-full w-full scale-0 rounded-full transition-all duration-300 group-hover:scale-100 group-hover:bg-yellow-300"></div>
-               </a>
-               <a href="tel:7979788689" class="px-8 py-4 border-2 border-village-gold text-village-gold font-bold text-xl rounded-full hover:bg-village-gold hover:text-village-dark transition-all">
-                   <i class="fas fa-phone-alt mr-2"></i> कॉल करें
-               </a>
-           </div>
+        // Tab Switching Function
+        function switchTab(tabName) {
+            // Remove active class from all tabs and contents
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+            
+            // Show corresponding content
+            document.getElementById(tabName).classList.add('active');
+            
+            // Smooth scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
 
-           <!-- Decorative Elements -->
-           <div class="absolute top-20 left-10 animate-bounce duration-[3000ms]">
-               <i class="fas fa-leaf text-green-500 text-2xl opacity-70"></i>
-           </div>
-           <div class="absolute bottom-20 right-10 animate-bounce duration-[4000ms]">
-               <i class="fas fa-seedling text-green-400 text-3xl opacity-70"></i>
-           </div>
-       </div>
-   </section>
+        // Form Submission Handler
+        function handleSubmit(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                subject: document.getElementById('subject').value,
+                message: document.getElementById('message').value
+            };
+            
+            // Here you would normally send the data to a server
+            // For now, we'll show an alert
+            alert(`Thank you ${formData.name}! Your message has been received. I'll get back to you at ${formData.email} soon.`);
+            
+            // Reset form
+            e.target.reset();
+        }
 
-   <!-- Search Bar Section -->
-   <div class="relative z-20 -mt-8 px-4">
-       <div class="max-w-3xl mx-auto glass-panel rounded-full p-2 shadow-2xl flex items-center">
-           <i class="fas fa-search text-village-gold ml-4 text-xl"></i>
-           <input type="text" id="service-search" placeholder="सेवा खोजें (जैसे: आधार, पैन कार्ड...)" 
-                  class="w-full bg-transparent border-none text-white placeholder-gray-300 px-4 py-3 focus:outline-none font-body text-lg">
-           <button class="bg-village-gold text-village-dark px-6 py-2 rounded-full font-bold hover:bg-yellow-400 transition-colors">
-               खोजें
-           </button>
-       </div>
-   </div>
+        // Add smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
 
-   <!-- Services Section -->
-   <section id="services" class="py-20 relative bg-village-dark">
-       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-           <div class="text-center mb-16">
-               <h2 class="text-4xl md:text-5xl font-heading font-bold text-village-gold mb-4">हमारी सेवाएं</h2>
-               <div class="w-24 h-1 bg-village-gold mx-auto rounded-full"></div>
-               <p class="mt-4 text-gray-300 text-lg">सरकारी, बैंकिंग और डिजिटल सेवाएं एक ही छत के नीचे</p>
-           </div>
-
-           <!-- Categories Grid -->
-           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="services-grid">
-               <!-- Generated via JS -->
-           </div>
-       </div>
-   </section>
-
-   <!-- Features/Why Us Section -->
-   <section class="py-20 bg-gradient-to-b from-village-dark to-[#2a1b15] relative overflow-hidden">
-       <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/wood-pattern.png')]"></div>
-       
-       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-           <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-               <div class="space-y-8">
-                   <h2 class="text-4xl font-heading font-bold text-village-gold">क्यों चुनें हमें?</h2>
-                   <div class="space-y-6">
-                       <div class="flex items-start space-x-4 p-4 glass-panel rounded-xl hover:bg-white/5 transition-colors">
-                           <div class="bg-village-gold p-3 rounded-full text-village-dark">
-                               <i class="fas fa-bolt text-xl"></i>
-                           </div>
-                           <div>
-                               <h3 class="text-xl font-bold text-white mb-2">तेज़ सेवा</h3>
-                               <p class="text-gray-300">सभी कार्य समय पर और तेज़ी से पूरे किए जाते हैं।</p>
-                           </div>
-                       </div>
-                       <div class="flex items-start space-x-4 p-4 glass-panel rounded-xl hover:bg-white/5 transition-colors">
-                           <div class="bg-village-gold p-3 rounded-full text-village-dark">
-                               <i class="fas fa-shield-alt text-xl"></i>
-                           </div>
-                           <div>
-                               <h3 class="text-xl font-bold text-white mb-2">विश्वसनीय</h3>
-                               <p class="text-gray-300">आपका डाटा पूरी तरह सुरक्षित और गोपनीय रखा जाता है।</p>
-                           </div>
-                       </div>
-                       <div class="flex items-start space-x-4 p-4 glass-panel rounded-xl hover:bg-white/5 transition-colors">
-                           <div class="bg-village-gold p-3 rounded-full text-village-dark">
-                               <i class="fas fa-hand-holding-usd text-xl"></i>
-                           </div>
-                           <div>
-                               <h3 class="text-xl font-bold text-white mb-2">किफायती दर</h3>
-                               <p class="text-gray-300">सबसे कम दरों में बेहतरीन सेवाएं।</p>
-                           </div>
-                       </div>
-                   </div>
-               </div>
-               
-               <div class="relative">
-                   <div class="absolute -inset-4 bg-village-gold/20 rounded-full blur-3xl"></div>
-                   <img src="https://images.unsplash.com/photo-1598897516650-e4dc73d8e417?q=80&w=1000&auto=format&fit=crop" 
-                        alt="Village Service" 
-                        class="relative rounded-2xl shadow-2xl border-4 border-village-gold/30 transform hover:scale-105 transition-transform duration-500">
-               </div>
-           </div>
-       </div>
-   </section>
-
-   <!-- Contact Section -->
-   <section id="contact" class="py-20 bg-village-dark relative">
-       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-           <div class="glass-panel rounded-3xl p-8 md:p-12 shadow-2xl border border-village-gold/20">
-               <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-                   <div>
-                       <h2 class="text-4xl font-heading font-bold text-village-gold mb-6">संपर्क करें</h2>
-                       <p class="text-gray-300 mb-8 text-lg">किसी भी सेवा या जानकारी के लिए हमसे संपर्क करें।</p>
-                       
-                       <div class="space-y-6">
-                           <div class="flex items-center space-x-4">
-                               <div class="w-12 h-12 bg-village-gold/20 rounded-full flex items-center justify-center text-village-gold">
-                                   <i class="fas fa-map-marker-alt text-xl"></i>
-                               </div>
-                               <div>
-                                   <h4 class="font-bold text-white">पता</h4>
-                                   <p class="text-gray-300">वार्ड नंबर 07, ब्राह्मण टोला, रामपुर, मurliganj, मधेपुरा, बिहार 852122</p>
-                               </div>
-                           </div>
-                           
-                           <div class="flex items-center space-x-4">
-                               <div class="w-12 h-12 bg-village-gold/20 rounded-full flex items-center justify-center text-village-gold">
-                                   <i class="fas fa-phone-alt text-xl"></i>
-                               </div>
-                               <div>
-                                   <h4 class="font-bold text-white">फोन</h4>
-                                   <p class="text-gray-300">+91 79797 88689</p>
-                               </div>
-                           </div>
-                           
-                           <div class="flex items-center space-x-4">
-                               <div class="w-12 h-12 bg-village-gold/20 rounded-full flex items-center justify-center text-village-gold">
-                                   <i class="fas fa-envelope text-xl"></i>
-                               </div>
-                               <div>
-                                   <h4 class="font-bold text-white">ईमेल</h4>
-                                   <p class="text-gray-300"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1a73747c755a7d687b777374697f6c7b717f747e687b347374">[email&#160;protected]</a></p>
-                               </div>
-                           </div>
-                       </div>
-                   </div>
-                   
-                   <div class="bg-white/5 p-6 rounded-2xl">
-                       <form onsubmit="event.preventDefault(); alert('धन्यवाद! हम जल्द ही आपसे संपर्क करेंगे।');" class="space-y-4">
-                           <div>
-                               <label class="block text-village-gold mb-2">आपका नाम</label>
-                               <input type="text" class="w-full bg-village-dark/50 border border-village-gold/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-village-gold" required>
-                           </div>
-                           <div>
-                               <label class="block text-village-gold mb-2">मोबाइल नंबर</label>
-                               <input type="tel" class="w-full bg-village-dark/50 border border-village-gold/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-village-gold" required>
-                           </div>
-                           <div>
-                               <label class="block text-village-gold mb-2">संदेश</label>
-                               <textarea rows="4" class="w-full bg-village-dark/50 border border-village-gold/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-village-gold"></textarea>
-                           </div>
-                           <button type="submit" class="w-full bg-village-gold text-village-dark font-bold py-3 rounded-lg hover:bg-yellow-400 transition-colors shadow-lg">
-                               भेजें
-                           </button>
-                       </form>
-                   </div>
-               </div>
-           </div>
-       </div>
-   </section>
-
-   <!-- Footer -->
-   <footer class="bg-[#1a110d] pt-16 pb-8 border-t border-village-gold/20">
-       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-           <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
-               <div class="col-span-1 md:col-span-2">
-                   <div class="flex items-center gap-3 mb-4">
-                       <div class="w-10 h-10 bg-village-gold rounded-full flex items-center justify-center text-village-dark font-bold text-xl">
-                           <i class="fas fa-om"></i>
-                       </div>
-                       <span class="font-heading text-2xl font-bold text-village-gold">GraminSevaKendra</span>
-                   </div>
-                   <p class="text-gray-400 mb-4 max-w-md">
-                       "हर सेवा, आपके गांव के पास – डिजिटल और मॉडर्न फैसिलिटी के साथ"
-                   </p>
-                   <div class="flex space-x-4">
-                       <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-village-gold hover:bg-village-gold hover:text-village-dark transition-all">
-                           <i class="fab fa-facebook-f"></i>
-                       </a>
-                       <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-village-gold hover:bg-village-gold hover:text-village-dark transition-all">
-                           <i class="fab fa-whatsapp"></i>
-                       </a>
-                       <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-village-gold hover:bg-village-gold hover:text-village-dark transition-all">
-                           <i class="fab fa-instagram"></i>
-                       </a>
-                   </div>
-               </div>
-               
-               <div>
-                   <h4 class="text-village-gold font-bold text-lg mb-4">त्वरित लिंक</h4>
-                   <ul class="space-y-2 text-gray-400">
-                       <li><a href="#home" class="hover:text-village-gold transition-colors">मुख्य पृष्ठ</a></li>
-                       <li><a href="#services" class="hover:text-village-gold transition-colors">सेवाएं</a></li>
-                       <li><a href="#about" class="hover:text-village-gold transition-colors">हमारे बारे में</a></li>
-                       <li><a href="#contact" class="hover:text-village-gold transition-colors">संपर्क</a></li>
-                   </ul>
-               </div>
-               
-               <div>
-                   <h4 class="text-village-gold font-bold text-lg mb-4">कार्य समय</h4>
-                   <ul class="space-y-2 text-gray-400">
-                       <li>सोमवार - शनिवार</li>
-                       <li>सुबह 9:00 - शाम 6:00</li>
-                       <li class="text-village-gold">रविवार बंद</li>
-                   </ul>
-               </div>
-           </div>
-           
-           <div class="border-t border-white/10 pt-8 text-center">
-               <p class="text-gray-500">
-                   © 2026 Samir Manglam. सर्वाधिकार सुरक्षित।
-               </p>
-           </div>
-       </div>
-   </footer>
-
-   <!-- Floating Action Buttons -->
-   <div class="fixed bottom-8 right-8 z-50 flex flex-col gap-4">
-       <!-- Temple Bell -->
-       <button id="temple-bell-btn" class="w-14 h-14 bg-orange-600 rounded-full shadow-2xl flex items-center justify-center text-white hover:bg-orange-500 transition-all transform hover:scale-110 border-2 border-yellow-400 group">
-           <i class="fas fa-bell text-2xl bell-icon"></i>
-           <span class="absolute right-16 bg-white text-village-dark px-3 py-1 rounded-lg text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-lg">
-               मंदिर की घंटी
-           </span>
-       </button>
-
-       <!-- WhatsApp -->
-       <a href="https://wa.me/917979788689" target="_blank" class="w-14 h-14 bg-green-600 rounded-full shadow-2xl flex items-center justify-center text-white hover:bg-green-500 transition-all transform hover:scale-110 animate-bounce">
-           <i class="fab fa-whatsapp text-3xl"></i>
-       </a>
-   </div>
-
-   <!-- Service Modal -->
-   <div id="service-modal" class="fixed inset-0 z-50 hidden">
-       <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeModal()"></div>
-       <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-2xl p-4">
-           <div class="bg-village-dark border-2 border-village-gold rounded-2xl shadow-2xl max-h-[80vh] overflow-y-auto">
-               <div class="sticky top-0 bg-village-dark p-6 border-b border-village-gold/30 flex justify-between items-center">
-                   <h3 id="modal-title" class="text-2xl font-heading font-bold text-village-gold"></h3>
-                   <button onclick="closeModal()" class="text-gray-400 hover:text-white">
-                       <i class="fas fa-times text-2xl"></i>
-                   </button>
-               </div>
-               <div id="modal-content" class="p-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                   <!-- Sub-services injected here -->
-               </div>
-           </div>
-       </div>
-   </div>
-
-   <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-       // Data Structure for Services
-       const servicesData = [
-           {
-               id: 'govt',
-               title: 'सरकारी सेवाएं',
-               icon: 'fa-landmark',
-               color: 'from-orange-600 to-red-600',
-               services: ['आधार नामांकन / अपडेट', 'पैन कार्ड आवेदन / सुधार', 'वोटर आईडी आवेदन', 'पासपोर्ट आवेदन', 'ड्राइविंग लाइसेंस', 'वाहन आरसी सेवाएं', 'राशन कार्ड', 'जन्म / मृत्यु प्रमाण पत्र', 'आय / जाति / निवास प्रमाण पत्र', 'ई-श्रम कार्ड', 'आयुष्मान भारत कार्ड', 'पीएम किसान पंजीकरण', 'पेंशन योजना', 'उद्यम पंजीकरण (MSME)', 'भूलेख / जमाबंदी']
-           },
-           {
-               id: 'banking',
-               title: 'बैंकिंग सेवाएं',
-               icon: 'fa-university',
-               color: 'from-green-600 to-teal-600',
-               services: ['AEPS (आधार से पैसा निकासी)', 'मनी ट्रांसफर (DMT)', 'माइक्रो ATM', 'नया बैंक खाता खोलना', 'बीमा (जीवन / सामान्य / स्वास्थ्य)', 'PMJJBY / PMSBY', 'अटल पेंशन योजना', 'मुद्रा लोन', 'गोल्ड लोन', 'FASTag', 'क्रेडिट कार्ड', 'लोन ईएमआई जमा', 'म्यूचुअल फंड / एसआईपी', 'डीमैट खाता']
-           },
-           {
-               id: 'education',
-               title: 'शिक्षा सेवाएं',
-               icon: 'fa-graduation-cap',
-               color: 'from-blue-600 to-indigo-600',
-               services: ['ऑनलाइन परीक्षा फॉर्म', 'छात्रवृत्ति आवेदन', 'कॉलेज एडमिशन फॉर्म', 'प्रतियोगी परीक्षा पंजीकरण', 'PMGDISHA कोर्स', 'स्किल डेवलपमेंट कोर्स', 'ऑनलाइन रिजल्ट प्रिंट', 'ITI / पॉलिटेक्निक फॉर्म', 'सेना / पुलिस भर्ती फॉर्म', 'रेलवे भर्ती फॉर्म', 'CTET / TET फॉर्म', 'ऑनलाइन मॉक टेस्ट']
-           },
-           {
-               id: 'utility',
-               title: 'यूटिलिटी बिल',
-               icon: 'fa-bolt',
-               color: 'from-yellow-600 to-orange-500',
-               services: ['बिजली बिल भुगतान', 'पानी बिल', 'मोबाइल रिचार्ज', 'DTH रिचार्ज', 'गैस बुकिंग', 'ब्रॉडबैंड बिल', 'FASTag रिचार्ज', 'ट्रेन / बस / फ्लाइट टिकट', 'होटल बुकिंग']
-           },
-           {
-               id: 'digital',
-               title: 'डिजिटल प्रिंटिंग',
-               icon: 'fa-print',
-               color: 'from-purple-600 to-pink-600',
-               services: ['ऑनलाइन फॉर्म भरना', 'प्रिंटआउट / फोटोकॉपी', 'लेमिनेशन', 'पासपोर्ट साइज फोटो', 'रिज्यूमे / सीवी बनाना', 'शपथ पत्र टाइपिंग', 'जीएसटी पंजीकरण', 'आईटीआर फाइलिंग', 'पैन-आधार लिंकिंग', 'डिजिटल सिग्नेचर']
-           },
-           {
-               id: 'design',
-               title: 'ग्राफिक डिजाइन',
-               icon: 'fa-paint-brush',
-               color: 'from-pink-600 to-rose-600',
-               services: ['लोगो डिजाइन', 'बैनर / पोस्टर डिजाइन', 'वेडिंग कार्ड', 'फ्लेक्स / होर्डिंग', 'यूट्यूब थंबनेल', 'विजिटिंग कार्ड', 'आईडी कार्ड', 'सोशल मीडिया पोस्ट']
-           },
-           {
-               id: 'web',
-               title: 'वेबसाइट सेवाएं',
-               icon: 'fa-globe',
-               color: 'from-cyan-600 to-blue-600',
-               services: ['वेबसाइट बनाना', 'ई-कॉमर्स वेबसाइट', 'स्कूल / कोचिंग वेबसाइट', 'डोमेन + होस्टिंग', 'वेबसाइट मेंटेनेंस', 'SEO सेटअप', 'गूगल एनालिटिक्स']
-           },
-           {
-               id: 'social',
-               title: 'सोशल मीडिया',
-               icon: 'fa-share-alt',
-               color: 'from-red-500 to-pink-600',
-               services: ['फेसबुक पेज सेटअप', 'इंस्टाग्राम बिजनेस', 'सोशल मीडिया विज्ञापन', 'यूट्यूब चैनल', 'गूगल माई बिजनेस', 'व्हाट्सएप बिजनेस', 'बल्क एसएमएस']
-           },
-           {
-               id: 'house',
-               title: 'हाउस प्लानिंग',
-               icon: 'fa-home',
-               color: 'from-amber-700 to-orange-800',
-               services: ['2D हाउस नक्शा', '3D हाउस डिजाइन', 'एस्टीमेट और लागत', 'इंटीरियर डिजाइन', 'शॉप / ऑफिस लेआउट', 'इलेक्ट्रिकल लेआउट', 'प्लंबिंग लेआउट']
-           },
-           {
-               id: 'extra',
-               title: 'विशेष सेवाएं',
-               icon: 'fa-star',
-               color: 'from-village-gold to-yellow-600',
-               services: ['अमेज़न / फ्लिपकार्ट ऑर्डर', 'ऑनलाइन प्रोडक्ट सेलिंग', 'रेलवे तत्काल बुकिंग', 'टेलीमेडिसिन', 'ऑनलाइन डॉक्टर', 'मैट्रिमोनियल प्रोफाइल', 'टेंट / शादी बुकिंग', 'डीजे / साउंड सिस्टम']
-           }
-       ];
-
-       // Initialize
-       document.addEventListener('DOMContentLoaded', () => {
-           initGateAnimation();
-           renderServices();
-           initFogAnimation();
-           initScrollAnimations();
-           initSearch();
-       });
-
-       // Gate Animation
-       function initGateAnimation() {
-           const overlay = document.getElementById('gate-overlay');
-           const bgMusic = document.getElementById('bg-music');
-           const gateAudio = document.getElementById('gate-audio');
-           
-           setTimeout(() => {
-               overlay.classList.add('gate-open');
-               
-               // Play sounds
-               gateAudio.volume = 0.5;
-               gateAudio.play().catch(e => console.log('Audio play failed'));
-               
-               setTimeout(() => {
-                   bgMusic.volume = 0.3;
-                   bgMusic.play().catch(e => console.log('BGM play failed'));
-               }, 2000);
-
-               // Reveal content
-               setTimeout(() => {
-                   document.getElementById('main-title').classList.remove('opacity-0', 'translate-y-10');
-               }, 1000);
-               setTimeout(() => {
-                   document.getElementById('sub-title').classList.remove('opacity-0', 'translate-y-10');
-               }, 1500);
-               setTimeout(() => {
-                   document.getElementById('hero-buttons').classList.remove('opacity-0', 'translate-y-10');
-               }, 2000);
-
-           }, 500);
-       }
-
-       // Render Services
-       function renderServices() {
-           const grid = document.getElementById('services-grid');
-           grid.innerHTML = servicesData.map((cat, index) => `
-               <div class="service-card group relative bg-gradient-to-br ${cat.color} p-1 rounded-2xl cursor-pointer transform transition-all hover:scale-105" 
-                    onclick="openModal('${cat.id}')"
-                    style="animation: fadeInUp 0.5s ease-out ${index * 0.1}s forwards; opacity: 0;">
-                   <div class="bg-village-dark/90 h-full rounded-xl p-6 flex flex-col items-center text-center relative overflow-hidden">
-                       <div class="absolute top-0 right-0 w-20 h-20 bg-white/5 rounded-full -mr-10 -mt-10 transition-all group-hover:scale-150"></div>
-                       
-                       <div class="w-16 h-16 rounded-full bg-gradient-to-br ${cat.color} flex items-center justify-center text-3xl text-white mb-4 shadow-lg group-hover:rotate-12 transition-transform">
-                           <i class="fas ${cat.icon}"></i>
-                       </div>
-                       
-                       <h3 class="text-xl font-heading font-bold text-white mb-2">${cat.title}</h3>
-                       <p class="text-gray-400 text-sm mb-4">${cat.services.length} सेवाएं उपलब्ध</p>
-                       
-                       <div class="mt-auto w-full">
-                           <button class="w-full py-2 rounded-lg bg-white/10 text-village-gold font-bold hover:bg-village-gold hover:text-village-dark transition-all flex items-center justify-center gap-2 group-hover:gap-3">
-                               देखें <i class="fas fa-arrow-right"></i>
-                           </button>
-                       </div>
-                   </div>
-               </div>
-           `).join('');
-       }
-
-       // Modal Functions
-       function openModal(categoryId) {
-           const category = servicesData.find(c => c.id === categoryId);
-           if (!category) return;
-
-           document.getElementById('modal-title').textContent = category.title;
-           const content = document.getElementById('modal-content');
-           
-           content.innerHTML = category.services.map(service => `
-               <div class="bg-white/5 border border-white/10 rounded-lg p-4 hover:bg-village-gold/20 hover:border-village-gold transition-all cursor-pointer flex items-center gap-3 group">
-                   <i class="fas fa-check-circle text-village-gold group-hover:scale-110 transition-transform"></i>
-                   <span class="text-gray-200 font-medium">${service}</span>
-               </div>
-           `).join('');
-
-           document.getElementById('service-modal').classList.remove('hidden');
-           document.body.style.overflow = 'hidden';
-       }
-
-       function closeModal() {
-           document.getElementById('service-modal').classList.add('hidden');
-           document.body.style.overflow = 'auto';
-       }
-
-       // Search Functionality
-       function initSearch() {
-           const searchInput = document.getElementById('service-search');
-           searchInput.addEventListener('input', (e) => {
-               const term = e.target.value.toLowerCase();
-               const cards = document.querySelectorAll('.service-card');
-               
-               cards.forEach(card => {
-                   const title = card.querySelector('h3').textContent.toLowerCase();
-                   if (title.includes(term)) {
-                       card.style.display = 'block';
-                   } else {
-                       card.style.display = 'none';
-                   }
-               });
-           });
-       }
-
-       // Fog Animation
-       function initFogAnimation() {
-           const canvas = document.getElementById('fog-canvas');
-           const ctx = canvas.getContext('2d');
-           
-           let width, height;
-           let particles = [];
-           
-           function resize() {
-               width = canvas.width = window.innerWidth;
-               height = canvas.height = window.innerHeight;
-           }
-           
-           class Particle {
-               constructor() {
-                   this.reset();
-               }
-               
-               reset() {
-                   this.x = Math.random() * width;
-                   this.y = Math.random() * height;
-                   this.vx = Math.random() * 0.5 - 0.25;
-                   this.vy = Math.random() * 0.3 - 0.1;
-                   this.radius = Math.random() * 100 + 50;
-                   this.alpha = Math.random() * 0.3 + 0.1;
-               }
-               
-               update() {
-                   this.x += this.vx;
-                   this.y += this.vy;
-                   
-                   if (this.x < -200 || this.x > width + 200 || this.y < -200 || this.y > height + 200) {
-                       this.reset();
-                   }
-               }
-               
-               draw() {
-                   ctx.beginPath();
-                   const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.radius);
-                   gradient.addColorStop(0, `rgba(200, 200, 200, ${this.alpha})`);
-                   gradient.addColorStop(1, 'rgba(200, 200, 200, 0)');
-                   ctx.fillStyle = gradient;
-                   ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                   ctx.fill();
-               }
-           }
-           
-           function init() {
-               resize();
-               for (let i = 0; i < 20; i++) {
-                   particles.push(new Particle());
-               }
-           }
-           
-           function animate() {
-               ctx.clearRect(0, 0, width, height);
-               particles.forEach(p => {
-                   p.update();
-                   p.draw();
-               });
-               requestAnimationFrame(animate);
-           }
-           
-           window.addEventListener('resize', resize);
-           init();
-           animate();
-       }
-
-       // Scroll Animations
-       function initScrollAnimations() {
-           const navbar = document.getElementById('navbar');
-           
-           window.addEventListener('scroll', () => {
-               if (window.scrollY > 50) {
-                   navbar.classList.add('bg-village-dark/95', 'backdrop-blur-md');
-               } else {
-                   navbar.classList.remove('bg-village-dark/95', 'backdrop-blur-md');
-               }
-           });
-
-           // Intersection Observer for fade-in elements
-           const observer = new IntersectionObserver((entries) => {
-               entries.forEach(entry => {
-                   if (entry.isIntersecting) {
-                       entry.target.classList.add('animate-fade-in-up');
-                   }
-               });
-           }, { threshold: 0.1 });
-
-           document.querySelectorAll('section h2').forEach(el => observer.observe(el));
-       }
-
-       // Mobile Menu Toggle
-       document.getElementById('mobile-menu-btn').addEventListener('click', () => {
-           const menu = document.getElementById('mobile-menu');
-           menu.classList.toggle('hidden');
-       });
-
-       // Temple Bell Button
-       document.getElementById('temple-bell-btn').addEventListener('click', function() {
-           const bell = this.querySelector('.bell-icon');
-           const audio = document.getElementById('temple-bell-audio');
-           
-           bell.classList.add('bell-ring');
-           audio.currentTime = 0;
-           audio.volume = 0.7;
-           audio.play().catch(e => console.log('Bell audio failed'));
-           
-           setTimeout(() => {
-               bell.classList.remove('bell-ring');
-           }, 1000);
-       });
-
-       // Music Toggle Button
-       let musicPlaying = false;
-       const bgMusic = document.getElementById('bg-music');
-
-   </script>
+        // Add parallax effect to gradient orbs
+        document.addEventListener('mousemove', (e) => {
+            const orbs = document.querySelectorAll('.gradient-orb');
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            
+            orbs.forEach((orb, index) => {
+                const speed = (index + 1) * 20;
+                const xOffset = (0.5 - x) * speed;
+                const yOffset = (0.5 - y) * speed;
+                orb.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
+            });
+        });
+    </script>
 </body>
 </html>
